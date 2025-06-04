@@ -42,18 +42,51 @@ def load_model():
 
 model = load_model()
 
+# Add CSS to fix dark mode button visibility
+st.markdown("""
+<style>
+/* Fix canvas buttons for dark mode */
+.stButton > button {
+    background-color: #0066cc !important;
+    color: white !important;
+    border: 1px solid #0066cc !important;
+}
+
+.stButton > button:hover {
+    background-color: #0052a3 !important;
+    border-color: #0052a3 !important;
+}
+
+/* Ensure canvas toolbar buttons are visible in dark mode */
+div[data-testid="stVerticalBlock"] button {
+    background-color: #f0f0f0 !important;
+    color: #333 !important;
+    border: 1px solid #ccc !important;
+}
+
+div[data-testid="stVerticalBlock"] button:hover {
+    background-color: #e0e0e0 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🖌️ Handwritten Digit Recognizer")
 
 st.subheader("Draw a digit (0–9)")
+
+# Initialize session state for canvas clearing
+if 'canvas_key' not in st.session_state:
+    st.session_state.canvas_key = 0
+
 canvas_result = st_canvas(
-    fill_color="#000000",
+    fill_color="#666363",
     stroke_width=15,
     stroke_color="#FFFFFF",
-    background_color="#000000",  # Inverted for white strokes on black bg
+    background_color="#000000",
     width=280,
     height=280,
     drawing_mode="freedraw",
-    key="canvas",
+    key=f"canvas_{st.session_state.canvas_key}",  # Dynamic key for clearing
 )
 
 if st.button("Predict"):
@@ -77,5 +110,10 @@ if st.button("Predict"):
             true_label_int = int(true_label)
             log_prediction(pred_class, true_label_int)
             st.success(f"✅ Logged! You marked the correct digit as: {true_label}")
+            
+            # Clear the canvas by incrementing the key
+            st.session_state.canvas_key += 1
+            st.rerun()  # Refresh the app to show cleared canvas
+            
         elif true_label:
             st.error("Please enter a digit between 0 and 9.")
