@@ -1,0 +1,7 @@
+#ignoredata
+data/
+__pycache__/
+*.pyc
+scr/Mnist_train.py
+*.pkl
+*.ipynb
