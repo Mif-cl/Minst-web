@@ -25,7 +25,7 @@ optimizer = Adam(model.parameters(), lr=0.001)
 loss_fn = nn.CrossEntropyLoss()
 
 # Train the model
-for epoch in range(10):  # Train for 10 epochs
+for epoch in range(20):  # Train for 10 epochs
     for images, labels in train_loader:
         images, labels = images.to(device), labels.to(device)
         optimizer.zero_grad()  # Reset gradients

@@ -14,7 +14,8 @@ class ImageClassifier(nn.Module):
         )
         self.fc_layers = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(64 * 24 * 24, 10),
+            nn.Linear(64 * 24 * 24, 32),
+            nn.Linear(32, 10)
         )
 
     def forward(self, x):
