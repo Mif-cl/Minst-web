@@ -33,9 +33,9 @@ def predict_image(model, image_path, device):
             predicted_class = torch.argmax(output, dim=1).item()
             confidence = probabilities[0][predicted_class].item()
         
-        return predicted_class, confidence, probabilities.squeeze().tolist(),img
+        return predicted_class, confidence, probabilities.squeeze().tolist()
     
     except Exception as e:
         print(f"Error predicting image: {e}")
-        return None, None, None
+        return None, 0, 0
     
