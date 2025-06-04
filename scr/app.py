@@ -70,10 +70,10 @@ if st.session_state.clear_canvas:
     st.session_state.clear_canvas = False # Reset the flag immediately
 
 canvas_result = st_canvas(
-    fill_color="#3D3A3A5A",
+    fill_color="#FFFFFF5A",
     stroke_width=15,
-    stroke_color="#FFFFFF",
-    background_color="#000000",
+    stroke_color="#000000",
+    background_color="#FFFFFF",
     width=280,
     height=280,
     drawing_mode="freedraw",
